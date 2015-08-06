@@ -1,0 +1,38 @@
+use std::collections::HashMap;
+
+fn to_letter_counts(instr: &str) -> HashMap<char, u32> {
+    let mut counts = HashMap::new();
+    let foo: String = to_lowercase(instr);
+    for ch in to_lowercase(instr).chars() {
+        let new = match counts.get(&ch) {
+            Some(n) => n+1,
+            None => 1,
+        };
+        counts.insert(ch, new);
+    }
+    counts
+}
+
+/* Updated from rust version 1.0 to 1.3
+ * And found my previous solution no longer worked
+ * So some modifications here */
+fn to_lowercase(instr: &str) -> String {
+    instr.chars().map(|c| c.to_lowercase()
+                           .next()
+                           .expect("Should be char"))
+         .collect::<String>()
+}
+
+
+pub fn anagrams_for<'a>(target: &'static str, inputs: &[&'a str]) -> Vec<&'a str> {
+    let mut out: Vec<&str> = Vec::new();
+    let letter_counts = to_letter_counts(target);
+    for possible in inputs {
+        if !((*possible) == target) {
+            if letter_counts == to_letter_counts(possible) {
+                out.push(possible);
+            }
+        }
+    }
+    out
+}
