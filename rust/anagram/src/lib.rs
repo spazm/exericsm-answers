@@ -1,18 +1,28 @@
 pub fn anagrams_for(s: &str, anagrams: &[&str]) -> Vec<String> {
-    let sorted_string = to_lowercase(s, true); // : String
-    let lowercase_s = to_lowercase(s, false);  // : String
+    let sorted_string = sorted_lowercase(s); // : String
+    let lowercase_s = lowercase(s);          // : String
     let mut answers = Vec::new();
     for anagram in anagrams {
-        let sorted_anagram = to_lowercase(&anagram, true);
+        let sorted_anagram = sorted_lowercase(&anagram);
         if sorted_string == sorted_anagram {
-            if lowercase_s != to_lowercase(&anagram, false) {
+            if lowercase_s != lowercase(&anagram) {
                 answers.push(anagram.to_string()) }}
     }
     answers
 }
 
-fn to_lowercase(s: &str, sort: bool) -> String {
-    //! lower case and optionally sort the string
+/// lower case the unicode string
+fn lowercase(s:&str) -> String {
+    _to_sorted_lowercase(s, false)
+}
+
+/// lower case and sort the unicode string
+fn sorted_lowercase(s:&str) -> String {
+    _to_sorted_lowercase(s, true)
+}
+
+/// lower case and optionally sort the string
+fn _to_sorted_lowercase(s: &str, sort: bool) -> String {
     // to_lowercase is unstable on Strings/collections, so manually
     // unpack the string to chars and lowercase each char
     //   str -> chars -> lowercase (collapse iterator of Some)
@@ -29,7 +39,6 @@ fn to_lowercase(s: &str, sort: bool) -> String {
                                     .expect("should be char"));
     // -> core::iter::Map<core::str::Chars<_>
 
-    // sort if necessary
     let lc_string: String = if sort {
         let mut chars: Vec<char> = lc_char_map.into_iter().collect();
         chars.sort();  // sort works in-place on mutable vec
