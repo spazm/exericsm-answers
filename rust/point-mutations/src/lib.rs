@@ -1,20 +1,35 @@
-/// calculates the Hamming difference between two DNA strands
-///
-/// Hamming distance between two strings is the count of single point mutations
-/// between the two strings, where one character has been replaced with another.
+//! calculates the Hamming difference between two DNA strands
+//!
+//! Hamming distance between two strings is the count of single point mutations
+//! between the two strings, where one character has been replaced with another.
+
+
+/// calculates the hamming distance between two strings.  This is the number
+/// of single point-mutations required to turn string `s1` into string `s2`.
 ///
 /// The Hamming distance is only defined for sequences of equal length. Hence you
 /// may assume that only sequences of equal length will be passed to your hamming
 /// distance function.
 ///
-/// Example:
+/// # Panics:
+/// Both strings must be the same length.
+///
+/// ```should_panic(expected = "assertion failed")
+/// assert_eq!(point_mutations::hamming_distance("", "A"), 1);
+/// ```
+///
+/// # Examples:
+/// ```text
 ///    GAGCCTACTAACGGGAT
 ///    CATCGTAATGACGGCCT
 ///    ^ ^ ^  ^ ^    ^^
 ///
 ///    The Hamming distance between these two DNA strands is 7.
+/// ```
 ///
-///    assert_eq!(hamming_distance("GAGCCTACTAACGGGAT", "CATCGTAATGACGGCCT"), 7);
+/// ```
+/// assert_eq!(point_mutations::hamming_distance("GAGCCTACTAACGGGAT", "CATCGTAATGACGGCCT"), 7);
+/// ```
 pub fn hamming_distance(s1 : &str, s2: &str) -> u32
 {
     // println!("s1: {},\ns2: {}", s1, s2);
