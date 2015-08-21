@@ -1,5 +1,5 @@
 #[derive(Debug)]
-pub struct Allergies(pub i32);
+pub struct Allergies(pub u16);
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Allergen {
@@ -27,10 +27,13 @@ impl Allergies {
     /// Tests if self is allergic to allergen
     /// Checks if bit for allergen is set in our score
     pub fn is_allergic_to(&self, allergen : &Allergen) -> bool {
+        // can be shortened to:
+        //     return self.0 & *allergen as u16 != 0;
+
         let &Allergies(score) = self;  // pattern match self to extract allergen bitfield score
 
         // extract enum value of allergen
-        let value = *allergen as i32;
+        let value = *allergen as u16;
 
         // is score bit set in allergen?
         // bitwise and of value and score will be non-zero if value-th bit is set
