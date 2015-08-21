@@ -17,22 +17,20 @@
 ///    assert_eq!(hamming_distance("GAGCCTACTAACGGGAT", "CATCGTAATGACGGCCT"), 7);
 pub fn hamming_distance(s1 : &str, s2: &str) -> u32
 {
-    let mut difference = 0;
-    println!("s1: {},\ns2: {}", s1, s2);
+    // println!("s1: {},\ns2: {}", s1, s2);
+    assert!(s1.len() == s2.len());
+
+    let mut distance = 0;
     let s1_chars = s1.chars();
-    let mut s2_chars = s2.chars();
+    let mut s2_chars = s2.chars();  // must be mut to exercise iterator via next()
 
     for s1_char in s1_chars {
-        let s2_char = s2_chars.next().expect("second string should have as many chars as first");
+        let s2_char = s2_chars.next()
+            .expect("s2 too short");
         if s1_char != s2_char {
-            difference += 1
+            distance += 1
         }
-        println!("s1_char: {:?}, s2_char: {:?}, diff:{} ", s1_char, s2_char, difference)
+        // println!("s1_char: {:?}, s2_char: {:?}, diff:{} ", s1_char, s2_char, distance)
     }
-    difference
-}
-
-#[test]
-fn test_readme_example() {
-    assert_eq!(hamming_distance("GAGCCTACTAACGGGAT", "CATCGTAATGACGGCCT"), 7);
+    distance
 }
