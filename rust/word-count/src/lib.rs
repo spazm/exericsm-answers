@@ -9,7 +9,13 @@
 use std::collections::HashMap;
 
 pub fn word_count(s: &str) -> HashMap<String, u32> {
-    let mut results : HashMap<String, u32> = HashMap::new();
+    let mut word_count : HashMap<String, u32> = HashMap::new();
 
-    results
+//    break string of input into words on non-alphanumeric
+    for word in s.split_whitespace() {
+        println!("word: {}", word);
+        let counter = word_count.entry(String::from(word)).or_insert(0);
+        *counter += 1;
+    }
+    word_count
 }
