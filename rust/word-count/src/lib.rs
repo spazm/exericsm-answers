@@ -12,8 +12,13 @@ pub fn word_count(s: &str) -> HashMap<String, u32> {
     let mut word_count : HashMap<String, u32> = HashMap::new();
 
 //    break string of input into words on non-alphanumeric
-    for word in s.split_whitespace() {
-        println!("word: {}", word);
+    for word in s.split(|c: char| !c.is_alphanumeric()) {
+        // if word is empty, continue
+        if word.len() == 0 { continue }
+        // will need to downcase word
+        println!("word: {:?}", word);
+
+        //entry() returns a mutable pointer to the hash value for a given key
         let counter = word_count.entry(String::from(word)).or_insert(0);
         *counter += 1;
     }
