@@ -13,14 +13,14 @@ pub enum Allergen {
     Cats = 128,
 }
 
-static ALL: [Allergen; 8] = [Allergen::Eggs,
-                             Allergen::Peanuts,
-                             Allergen::Shellfish,
-                             Allergen::Strawberries,
-                             Allergen::Tomatoes,
-                             Allergen::Chocolate,
-                             Allergen::Pollen,
-                             Allergen::Cats];
+static ALLERGENS: [Allergen; 8] = [Allergen::Eggs,
+                                   Allergen::Peanuts,
+                                   Allergen::Shellfish,
+                                   Allergen::Strawberries,
+                                   Allergen::Tomatoes,
+                                   Allergen::Chocolate,
+                                   Allergen::Pollen,
+                                   Allergen::Cats];
 
 
 impl Allergies {
@@ -41,9 +41,9 @@ impl Allergies {
     }
 
     /// Filter list of all Allergens to include only the ones self is alergic to.
-    /// ALL is an array of &Allergen, so we must convert to Allergen via `map(|&n| n)`
+    /// ALLERGENS is an array of &Allergen, so we must convert to Allergen via `map(|&n| n)`
     pub fn allergies(&self) -> Vec<Allergen> {
-        let allergens: Vec<Allergen> = ALL
+        let allergens: Vec<Allergen> = ALLERGENS
             .iter()
             .filter( |a| self.is_allergic_to(a))
             .map(|&n| n)
