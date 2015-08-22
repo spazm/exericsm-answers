@@ -1,15 +1,22 @@
 extern crate rna_transcription as dna;
 
 #[test]
+#[should_panic(expected = "invalid nucleotide")]
+fn test_invalid_dna(){
+    let strand = dna::DeoxyribonucleicAcid::new("GATTACAZ");
+    println!("strand: {:?}", strand)
+}
+
+#[test]
 fn test_direct_instantiate() {
-    let foo = dna::RibonucleicAcid {strand: String::from("CGA")};
-    println!("foo: {:?}", foo);
+    let strand = dna::RibonucleicAcid {strand: String::from("CGA")};
+    println!("strand: {:?}", strand);
 }
 
 #[test]
 fn test_instantiate_with_new() {
-    let bar = dna::RibonucleicAcid::new("CGA");
-    println!("bar: {:?}", bar);
+    let strand = dna::RibonucleicAcid::new("CGA");
+    println!("strand: {:?}", strand);
 }
 
 #[test]
