@@ -17,6 +17,25 @@
 //! * `C` -> `G`
 //! * `T` -> `A`
 //! * `A` -> `U`
+//!
+//! # Examples
+//!
+//! ```
+//! extern crate rna_transcription as dna;
+//!
+//! let dna_strand = dna::DeoxyribonucleicAcid::new("GCTA");
+//! let rna_strand = dna::RibonucleicAcid::new("CGAU");
+//! assert_eq!(dna_strand.to_rna(), rna_strand);
+//! ```
+//!
+//! # Panic
+//! Panics with 'invalid nucleotide' if an invalid nucleotide is found in input string.
+//!
+//! ```should_panic
+//! extern crate rna_transcription as dna;
+//!
+//! dna::DeoxyribonucleicAcid::new("GATTACAZ");
+//! ```
 
 // RNA:
 // * support comparison for equality
