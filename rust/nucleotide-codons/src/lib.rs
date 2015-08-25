@@ -71,17 +71,16 @@ pub fn normalize_codon<'a>(s: &'a str) -> Result<String, Error> {
 
 impl Codons {
     pub fn name_for(&self, s: &str) -> Result<&str, Error>{
-        // match guard expression instead of if/else if?
-        if s.len() < 3 {
-            return Err(Error::TooShort) }
-        else if s.len() > 3 {
-            return Err(Error::TooLong) }
-
-        assert_eq!(s.len(), 3);
-        let s : String = try!(normalize_codon(s));
-        match self.codons.get(&*s) {
-            Some(codon_name) => return Ok(codon_name),
-            None => return Err(Error::NotShorthand)
+        match s.len() {
+            i if i < 3 => Err(Error::TooShort),
+            i if i > 3 => Err(Error::TooLong),
+            _ => {
+                let s = try!(normalize_codon(s));
+                match self.codons.get(&*s) {
+                    Some(codon_name) => Ok(codon_name),
+                    None => Err(Error::NotShorthand)
+                }
+            }
         }
     }
 }
