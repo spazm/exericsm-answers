@@ -36,7 +36,7 @@ pub struct Codons {
 }
 
 #[derive(Debug, PartialEq)]
-pub enum Error { TooShort, TooLong, NotShorthand }
+pub enum Error { TooShort, TooLong, NotShorthand, Unknown }
 
 pub fn parse(pairs: Vec<(&'static str, &'static str)>) -> Codons {
     Codons {
@@ -114,7 +114,7 @@ impl Codons {
                 let s = try!(normalize_codon(s));
                 match self.codons.get(&*s) {
                     Some(codon_name) => Ok(codon_name),
-                    None => Err(Error::NotShorthand)
+                    None => Err(Error::Unknown)
                 }
             }
         }
