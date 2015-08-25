@@ -43,15 +43,29 @@ pub fn parse(pairs: Vec<(&'static str, &'static str)>) -> Codons {
 /// C | S | Y | B -> C
 /// G | K -> G
 /// T -> T
-fn normalize_codon<'a>(s: &'a str) -> Result<String, Error> {
+///
+/// Valid codons are ok:
+///
+///```
+/// assert!(nucleotide_codons::normalize_codon("A").is_ok());
+///```
+///
+/// Invalid codons are not ok:
+///
+///```
+/// assert!(!nucleotide_codons::normalize_codon("Z").is_ok());
+///```
+pub fn normalize_codon<'a>(s: &'a str) -> Result<String, Error> {
+    let mut valid_shorthand = true;
     let s = s.chars().map( |c| match c {
         'A' | 'W' | 'M' | 'R' | 'D' | 'H' | 'V' | 'N' => 'A',
         'C' | 'S' | 'Y' | 'B' => 'C',
         'G' | 'K' => 'G',
         'T' => 'T',
-        x => x, //_return Err(Error::NotShorthand),
+        x => {valid_shorthand = false; x},
     }
     ).collect::<String>();
+    if !valid_shorthand { return Err(Error::NotShorthand)}
     Ok(s)
 }
 
