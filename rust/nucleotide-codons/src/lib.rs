@@ -1,3 +1,32 @@
+//!# NAME:
+//! Nucleotide Codons
+//!
+//!# SYNOPSIS:
+//!
+//!```
+//! extern crate nucleotide_codons;
+//! let name_pairs : Vec<(&str, &str)> = vec!(("ATG", "methionine"));
+//! let info = nucleotide_codons::parse(name_pairs);
+//! assert_eq!(info.name_for("RTG"), Ok("methionine"));
+//!```
+//!
+//!# DESCRIPTION:
+//!
+//!Within DNA sequences of 3 nucleotides, called codons, encode for amino acids.
+//!Often several codons encode for the same amino acid. The International Union of Pure
+//!and Applied Chemistry developed a shorthand system for designating groups of
+//!codons that encode for the same amino acid.
+//!
+//!Simply put they've expanded the four letters A, C, G and T with a bunch of
+//!letters that stand for different possibilities. For example R means A and G.
+//!So TAR stands for TAA and TAG (think of "TAR" as "TA[AG]" in regex notation).
+//!
+//!Write some code that given a codon, which may use shorthand, returns the
+//!name of the amino acid that that codon encodes for. You will be given
+//!a list of non-shorthand-codon/name pairs to base your computation on.
+//!
+//!See: [wikipedia](https://en.wikipedia.org/wiki/DNA_codon_table).
+
 use std::collections::HashMap;
 use std::iter::FromIterator;
 
@@ -21,6 +50,8 @@ pub fn parse(pairs: Vec<(&'static str, &'static str)>) -> Codons {
 /// for name look-up.
 ///
 /// Maps from https://en.wikipedia.org/wiki/Nucleic_acid_notation
+///
+///```text
 /// A -> A
 /// C -> C
 /// G -> G
@@ -37,17 +68,22 @@ pub fn parse(pairs: Vec<(&'static str, &'static str)>) -> Codons {
 /// H -> A | C | T
 /// V -> A | C | G
 /// N -> A | C | G | T (gap, any)
+///```
 ///
 /// Collapsed reverse map:
+///
+///```text
 /// A | W | M | R | D | H | V | N -> A
 /// C | S | Y | B -> C
 /// G | K -> G
 /// T -> T
+///```
 ///
 /// Valid codons are ok:
 ///
 ///```
 /// assert!(nucleotide_codons::normalize_codon("A").is_ok());
+/// assert_eq!(nucleotide_codons::normalize_codon("R").ok().expect(""), "A");
 ///```
 ///
 /// Invalid codons are not ok:
