@@ -13,12 +13,12 @@ impl Robot {
     /// The provided test is broken, in that short names pass.
     fn random_name() -> String {
         let mut rng = Random(thread_rng());
-        let mut name: String = String::from("");
-        name.push(rng.letter());
-        name.push(rng.letter());
-        name.push(rng.digit());
-        name.push(rng.digit());
-        name.push(rng.digit());
+        let name: String = vec!(
+            rng.letter(),
+            rng.letter(),
+            rng.digit(),
+            rng.digit(),
+            rng.digit()).into_iter().collect::<String>();
         name
     }
 
