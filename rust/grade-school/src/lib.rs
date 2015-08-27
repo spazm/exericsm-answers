@@ -11,9 +11,11 @@ impl School {
        self.0.entry(grade).or_insert(Vec::new()).push(student.to_string());
    }
 
-   // TODO: sort numerically
+   /// Sorted list of grades
    pub fn grades(&self) -> Vec<u32> {
-       self.0.keys().map(|k| *k).collect()
+       let mut grades: Vec<u32> = self.0.keys().map(|k| *k).collect();
+       grades.sort();
+       grades
    }
 
    // TODO: sort alphabetically
