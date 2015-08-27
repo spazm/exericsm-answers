@@ -1,3 +1,4 @@
 .exercism.go
 *.swp
 rust/**/target/*
+rust/*/Cargo.lock
