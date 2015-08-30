@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::collections::hash_map::Entry;
 
 pub struct School(HashMap<u32,Vec<String>>);
 
@@ -19,7 +20,12 @@ impl School {
    }
 
    // TODO: sort alphabetically
-   pub fn grade(&self, grade: u32) -> Option<&Vec<String>> {
-       self.0.get(&grade)
+   /// Sorted list of students in a given grade
+   /// We cannot save the sorted list back to grade if called with an immutable self.
+   pub fn grade(& mut self, grade: u32) -> Option<&Vec<String>> {
+       match self.0.entry(grade) {
+           Entry::Vacant(_) => None,
+           Entry::Occupied(entry) => { let mut students = entry.into_mut(); students.sort(); Some(students) }
+       }
    }
 }

@@ -14,7 +14,6 @@ fn test_add_student() {
 }
 
 #[test]
-#[ignore]
 fn test_add_more_students_in_same_class() {
     let mut s = school::School::new();
     s.add(2, "James");
@@ -26,7 +25,6 @@ fn test_add_more_students_in_same_class() {
 }
 
 #[test]
-#[ignore]
 fn test_add_students_to_different_grades() {
     let mut s = school::School::new();
     s.add(3, "Chelsea");
@@ -39,8 +37,7 @@ fn test_add_students_to_different_grades() {
 }
 
 #[test]
-#[ignore]
 fn test_get_students_in_a_non_existent_grade() {
-    let s = school::School::new();
+    let mut s = school::School::new();
     assert_eq!(s.grade(1), None);
 }
