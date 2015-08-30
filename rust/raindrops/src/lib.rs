@@ -43,7 +43,7 @@ pub fn raindrops(n: u32) -> String {
     if n % 7 == 0 { rain.push_str("Plong") }
 
     if rain.is_empty() {
-        rain = format!("{}", n)
+        rain = n.to_string()
     }
     rain
 }
