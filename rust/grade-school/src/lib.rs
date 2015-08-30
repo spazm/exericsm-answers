@@ -1,10 +1,10 @@
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
-pub struct School(HashMap<u32,Vec<String>>);
+pub struct School(BTreeMap<u32,Vec<String>>);
 
 impl School {
    pub fn new() -> School {
-       School(HashMap::new())
+       School(BTreeMap::new())
    }
 
    /// Add student to sorted list of students in grade.
@@ -15,10 +15,9 @@ impl School {
    }
 
    /// Sorted list of grades
+   // keys in a btree are always sorted.
    pub fn grades(&self) -> Vec<u32> {
-       let mut grades: Vec<u32> = self.0.keys().map(|k| *k).collect();
-       grades.sort();
-       grades
+       self.0.keys().map(|k| *k).collect::<Vec<u32>>()
    }
 
    /// Sorted list of students in a given grade
