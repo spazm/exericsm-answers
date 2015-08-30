@@ -13,16 +13,15 @@ impl Robot {
     /// The provided test is broken, in that short names pass.
     fn random_name() -> String {
         let mut rng = Random(thread_rng());
-        let name: String = vec!(
+        vec!(
             rng.letter(),
             rng.letter(),
             rng.digit(),
             rng.digit(),
-            rng.digit()).into_iter().collect::<String>();
-        name
+            rng.digit()).into_iter().collect::<String>()
     }
 
-    pub fn name<'a>(&'a self) -> &'a str {
+    pub fn name(&self) -> &str {
         &self.name
     }
 
@@ -38,13 +37,10 @@ impl Random {
         const LETTERS : &'static [u8] =
                 b"ABCDEFGHIJKLMNOPQRSTUVWXYZ\
                   abcdefghijklmnopqrstuvwxyz";
-        let c: char = *self.0.choose(LETTERS).unwrap() as char;
-        c
-
+        *self.0.choose(LETTERS).unwrap() as char
     }
     pub fn digit(&mut self) -> char {
         const DIGITS : &'static [u8] = b"0123456789";
-        let c: char = *self.0.choose(DIGITS).unwrap() as char;
-        c
+        *self.0.choose(DIGITS).unwrap() as char
     }
 }
