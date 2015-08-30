@@ -38,6 +38,6 @@ fn test_add_students_to_different_grades() {
 
 #[test]
 fn test_get_students_in_a_non_existent_grade() {
-    let mut s = school::School::new();
+    let s = school::School::new();
     assert_eq!(s.grade(1), None);
 }
