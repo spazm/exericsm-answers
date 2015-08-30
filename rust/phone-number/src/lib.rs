@@ -23,9 +23,7 @@ pub fn area_code(n: &str) -> Option<String> {
 /// pretty print a US phone number in "(XXX) XXX-XXXX" format
 pub fn pretty_print(n: &str) -> String {
     match number(n) {
+        Some(n) => format!("({}) {}-{}", &n[0..3], &n[3..6], &n[6..10]),
         None => "invalid".to_string(),
-        Some(n) => "(123) 456-7890".to_string(),
-//        Some(n) => format!("({}) {}-{}",
-//                           n[0..3],n[3..6],n[6..10]).to_string()
     }
 }

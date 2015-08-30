@@ -76,6 +76,11 @@ fn test_pretty_print_with_full_us_phone_number() {
 }
 
 #[test]
+fn test_pretty_print_with_full_us_phone_number_2() {
+    assert_eq!(phone::pretty_print("12234567890"), "(223) 456-7890");
+}
+
+#[test]
 fn test_pretty_print_with_invalid() {
     assert_eq!(phone::pretty_print("1186234567890"), "invalid");
 }
