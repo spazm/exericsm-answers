@@ -65,7 +65,6 @@ fn test_area_code_with_invalid() {
 }
 
 #[test]
-#[ignore]
 fn test_pretty_print() {
     assert_eq!(phone::pretty_print("1234567890"), "(123) 456-7890");
 }
