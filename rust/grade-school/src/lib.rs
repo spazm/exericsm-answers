@@ -17,7 +17,7 @@ impl School {
    /// Sorted list of grades
    // keys in a btree are always sorted.
    pub fn grades(&self) -> Vec<u32> {
-       self.0.keys().map(|k| *k).collect::<Vec<u32>>()
+       self.0.keys().map(|k| *k).collect()
    }
 
    /// Sorted list of students in a given grade
