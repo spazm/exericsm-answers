@@ -1,25 +1,18 @@
 /// Convert hex value from string to Option<u32> decimal
 pub fn hex_to_int(hex: &str) -> Option<u32> {
-    // first attempt: manual loop backwards through chars
     // second attempt: fold forwards, multiply sum by 16
-    let mut value = 0;
-    for c in hex.chars() {
-        value *= 16;
-        hex_digit(c).and_then(|d| value += d)
-    }
-    Some(value)
+    // Helpful for deciphering `.map()` vs `.and_then()`:
+    //    http://hoverbear.org/2014/08/12/option-monads-in-rust/
+    hex.chars().fold(Some(0), |sum, c| {
+        sum.map(|s| s * 16).and_then(|s| hex_digit(c).map(|h| s + h ))
+    })
 }
 
 fn hex_digit(c: char) -> Option<u32> {
     match c {
-        _ if c >= '0' && c <= '9'
-            => Some(c as u32 - '0' as u32),
-        'a' | 'A' => Some(10),
-        'b' | 'B' => Some(11),
-        'c' | 'C' => Some(12),
-        'd' | 'D' => Some(13),
-        'e' | 'E' => Some(14),
-        'f' | 'F' => Some(15),
+        '0' ... '9' => Some(c as u32 - '0' as u32),
+        'a' ... 'f' => Some(c as u32 - 'a' as u32 + 10),
+        'A' ... 'F' => Some(c as u32 - 'A' as u32 + 10 ),
         _ => None,
     }
 }
