@@ -27,5 +27,10 @@ class HammingTest(unittest.TestCase):
         self.assertEqual(9, hamming.distance('GGACGGATTCTG', 'AGGACGGATTCT'))
 
 
+    def test_different_length_strands_exception(self):
+        with self.assertRaises(hamming.UnequalStringLength):
+            hamming.distance('A', 'AA')
+
+
 if __name__ == '__main__':
     unittest.main()
