@@ -71,9 +71,20 @@ fn empty_input_empty_output() {
 }
 
 #[test]
-#[ignore]
 fn singleton_input_singleton_output() {
     let input = vec!((1, 1));
+    match check(&input) {
+        Correct => (),
+        GotInvalid => panic!("Unexpectedly got invalid on input {:?}", input),
+        ChainingFailure(output) => panic!("Chaining failure for input {:?}, output {:?}", input, output),
+        LengthMismatch(output) => panic!("Length mismatch for input {:?}, output {:?}", input, output),
+        DominoMismatch(output) => panic!("Domino mistmatch for input {:?}, output {:?}", input, output),
+    }
+}
+
+#[test]
+fn singleton_input_doubleton_output() {
+    let input = vec!((1, 2), (2, 1));
     match check(&input) {
         Correct => (),
         GotInvalid => panic!("Unexpectedly got invalid on input {:?}", input),
@@ -97,7 +108,6 @@ fn no_repeat_numbers() {
 }
 
 #[test]
-#[ignore]
 fn invalid_input() {
     let input = vec!((1, 2), (4, 1), (2, 3));
     assert_eq!(dominoes::chain(&input), None);
