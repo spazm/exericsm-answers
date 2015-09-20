@@ -95,7 +95,6 @@ fn singleton_input_doubleton_output() {
 }
 
 #[test]
-#[ignore]
 fn no_repeat_numbers() {
     let input = vec!((1, 2), (3, 1), (2, 3));
     match check(&input) {
@@ -108,13 +107,13 @@ fn no_repeat_numbers() {
 }
 
 #[test]
+#[ignore]
 fn invalid_input() {
     let input = vec!((1, 2), (4, 1), (2, 3));
     assert_eq!(dominoes::chain(&input), None);
 }
 
 #[test]
-#[ignore]
 fn ten_elements() {
     let input = vec!((1, 2), (5, 3), (3, 1), (1, 2), (2, 4), (1, 6), (2, 3), (3, 4), (5, 6));
     match check(&input) {

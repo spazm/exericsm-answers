@@ -26,19 +26,24 @@ pub fn chain(input: &Vec<Domino>) -> Option<Vec<Domino>> {
         let mut rest = input.clone();
         rest.remove(i);
         let rest = rest;
-        match subchain(domino.0, rest.clone()) {
+        println!("dom0: {:?}, rest:{:?}", domino.0, rest);
+        match subchain(domino.1, rest.clone()) {
             Some(cx) => {
-                println!("dom0: {:?}, rest:{:?}, cx:{:?}", domino.0, rest, cx);
                 let mut m = vec!(domino);
                 m.extend(cx.iter().cloned() );
+                println!("dom1: {:?}, rest:{:?}, cx:{:?} -> m:{:?}", domino.1, rest, cx, m);
+                // validate that solution head == tail
                 return Some(m);
             },
             None => ()
         }
-        match subchain(domino.1, rest.clone()) {
+        match subchain(domino.0, rest.clone()) {
             Some(cx) => {
+                println!("dom0: {:?}, rest:{:?}, cx:{:?}", domino.0, rest, cx);
                 let mut m = vec!((domino.1, domino.0));
                 m.extend(cx.iter().cloned() );
+                println!("dom1: {:?}, rest:{:?}, cx:{:?} -> m:{:?}", domino.1, rest, cx, m);
+                // validate that solution head == tail
                 return Some(m);
             },
             None => ()
@@ -57,10 +62,15 @@ pub fn match_head(head: usize, d: Domino) -> Option<Domino>{
 
 pub fn subchain(head: usize, dx: Vec<Domino>) -> Option<Vec<Domino>> {
     for i in 0..dx.len() {
+        println!("i:{}, head:{}, dx[i]:{:?}", i, head, dx[i]);
         match match_head(head, dx[i]) {
             Some(d1) => {
                 let mut rest = dx.clone();
                 rest.remove(i);
+                println!("matched d1:{:?} rest:{:?}", d1, rest);
+                if rest.len() == 0 {
+                    return Some(vec!(d1))
+                }
                 match subchain(d1.1, rest) {
                     Some(cx) => {
                         let mut m = vec!(d1);
@@ -70,7 +80,7 @@ pub fn subchain(head: usize, dx: Vec<Domino>) -> Option<Vec<Domino>> {
                     None => ()
                 }
             },
-            None => ()
+            None => println!("match_head returned None for head:{}, dx[i]:{:?}", head, dx[i])
         }
     }
     None
