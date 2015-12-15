@@ -107,7 +107,6 @@ fn no_repeat_numbers() {
 }
 
 #[test]
-#[ignore]
 fn invalid_input() {
     let input = vec!((1, 2), (4, 1), (2, 3));
     assert_eq!(dominoes::chain(&input), None);
