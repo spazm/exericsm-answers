@@ -4,7 +4,7 @@ pub fn hex_to_int(hex: &str) -> Option<u32> {
     // Helpful for deciphering `.map()` vs `.and_then()`:
     //    http://hoverbear.org/2014/08/12/option-monads-in-rust/
     hex.chars().fold(Some(0), |sum, c| {
-        sum.map(|s| s * 16).and_then(|s| hex_digit(c).map(|h| s + h ))
+        sum.and_then(|s| hex_digit(c).map(|h| s * 16 + h ))
     })
 }
 
