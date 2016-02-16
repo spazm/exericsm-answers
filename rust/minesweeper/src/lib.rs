@@ -1,16 +1,15 @@
-fn mark_bomb(row: usize, col: usize, max_row: usize, max_col: usize, arr: & mut Vec<Vec<i8>>) -> ()
+/// mark a bomb square.
+fn mark_bomb(row: usize, col: usize, board: & mut Vec<Vec<i8>>) -> ()
 {
-    println!("row: {}, max_row: {}\ncol: {}, max_col: {}", row, max_row, col, max_col);
-
     // decrement bomb squares by 10, then increment all squares by 1 in 3x3 grid around bomb.
-    if let Some(mut current_row) = arr.get_mut(row){
+    if let Some(mut current_row) = board.get_mut(row){
         if let Some(mut cx) = current_row.get_mut(col) {
             *cx -= 10;
         }
     }
 
     for r in if row > 1 {row - 1} else {0} .. row + 2 {
-        if let Some(mut update_row) = arr.get_mut(r) {
+        if let Some(mut update_row) = board.get_mut(r) {
             for c in if col > 1 {col - 1} else {0} .. col + 2 {
                 if let Some(mut cx) = update_row.get_mut(c) {
                     *cx += 1;
@@ -34,7 +33,7 @@ pub fn annotate(bx: &Vec<&str>) -> Vec<String> {
     for (r, &row) in bx.iter().enumerate() {
         for (col, ch) in row.char_indices() {
             match ch {
-                '*' => mark_bomb(r, col, max_row, max_col, & mut board),
+                '*' => mark_bomb(r, col, & mut board),
                 _ => (),
             }
         }
