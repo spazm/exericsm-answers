@@ -21,6 +21,13 @@ fn run_test(test_case: &[&str]) {
 }
 
 #[test]
+fn three_by_two_one_bomb() {
+    run_test(&[
+        "11 ",
+        "*1 "
+    ]);
+}
+#[test]
 fn empty_board_has_no_annotations() {
     run_test(&[
         "   ",
@@ -30,7 +37,6 @@ fn empty_board_has_no_annotations() {
 }
 
 #[test]
-#[ignore]
 fn board_full_of_mines_has_no_annotations() {
     run_test(&[
         "***",
@@ -40,7 +46,6 @@ fn board_full_of_mines_has_no_annotations() {
 }
 
 #[test]
-#[ignore]
 fn one_horizontal_row_with_one_mine() {
     run_test(&[
         "   1*1 "
@@ -48,7 +53,6 @@ fn one_horizontal_row_with_one_mine() {
 }
 
 #[test]
-#[ignore]
 fn one_horizontal_row_with_two_mines() {
     run_test(&[
         " 1*2*1 "
@@ -56,7 +60,6 @@ fn one_horizontal_row_with_two_mines() {
 }
 
 #[test]
-#[ignore]
 fn one_horizontal_row_with_one_mine_at_the_left_end() {
     run_test(&[
         "*1  "
@@ -64,7 +67,6 @@ fn one_horizontal_row_with_one_mine_at_the_left_end() {
 }
 
 #[test]
-#[ignore]
 fn one_horizontal_row_with_one_mine_at_the_right_end() {
     run_test(&[
         "  1*"
@@ -72,7 +74,6 @@ fn one_horizontal_row_with_one_mine_at_the_right_end() {
 }
 
 #[test]
-#[ignore]
 fn one_vertical_row_with_one_mine() {
     run_test(&[
         " ",
@@ -84,7 +85,6 @@ fn one_vertical_row_with_one_mine() {
 }
 
 #[test]
-#[ignore]
 fn one_vertical_row_with_two_mines() {
     run_test(&[
         " ",
@@ -98,7 +98,6 @@ fn one_vertical_row_with_two_mines() {
 }
 
 #[test]
-#[ignore]
 fn one_vertical_row_with_one_mine_at_the_top() {
     run_test(&[
         "*",
@@ -109,7 +108,6 @@ fn one_vertical_row_with_one_mine_at_the_top() {
 }
 
 #[test]
-#[ignore]
 fn one_vertical_row_with_one_mine_at_the_bottom() {
     run_test(&[
         " ",
@@ -120,7 +118,6 @@ fn one_vertical_row_with_one_mine_at_the_bottom() {
 }
 
 #[test]
-#[ignore]
 fn one_mine_in_the_middle() {
     run_test(&[
         "***",
@@ -130,7 +127,6 @@ fn one_mine_in_the_middle() {
 }
 
 #[test]
-#[ignore]
 fn complex_case() {
     run_test(&[
         " 2*2 ",
@@ -138,5 +134,16 @@ fn complex_case() {
         "*****",
         "25*52",
         " 2*2 ",
+    ]);
+}
+
+#[test]
+fn one_mine_big_board() {
+    run_test(&[
+        "     ",
+        " 111 ",
+        " 1*1 ",
+        " 111 ",
+        "     ",
     ]);
 }
